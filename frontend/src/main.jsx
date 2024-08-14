@@ -2,8 +2,8 @@ import { createRoot } from "react-dom/client";
 import { Flowbite } from "flowbite-react";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SignUp from "./components/auth/SignUp";
-import Login from "./components/auth/Login";
+import SignUp from "./components/pages/auth/SignUp";
+import Login from "./components/pages/auth/Login";
 
 const router = createBrowserRouter([
   {

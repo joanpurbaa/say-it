@@ -6,7 +6,7 @@ export const showUser = async (req, res) => {
   try {
     const result = await prisma.user.findMany();
 
-    res.json(result).send(200);
+    return res.json(result);
   } catch (error) {
     console.log(error);
   }

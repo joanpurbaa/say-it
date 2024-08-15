@@ -16,7 +16,8 @@ const PasswordInput = (props) => {
         <>
           <TextInput
             className="w-full"
-            color="password"
+            sizing="default"
+            color="default"
             id="password"
             name="password"
             type="text"
@@ -24,6 +25,7 @@ const PasswordInput = (props) => {
             autoComplete="off"
             required
             onChange={props.onChange}
+            value={props.value}
           />
           <FaRegEye
             className="w-6 h-6 cursor-pointer"
@@ -34,7 +36,8 @@ const PasswordInput = (props) => {
         <>
           <TextInput
             className="w-full"
-            color="password"
+            sizing="default"
+            color="default"
             id="password"
             name="password"
             type="password"
@@ -42,6 +45,7 @@ const PasswordInput = (props) => {
             autoComplete="off"
             required
             onChange={props.onChange}
+            value={props.value}
           />
           <FaRegEyeSlash
             className="w-6 h-6 cursor-pointer"

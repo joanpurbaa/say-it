@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Label, TextInput, Button } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthRightSection from "../../templates/AuthRightSection";
 import PasswordInput from "../../atoms/PasswordInput";
 import axios from "axios";
@@ -12,7 +12,11 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const submit = async () => {
+  const navigate = useNavigate();
+
+  const submit = async (e) => {
+    e.preventDefault();
+
     try {
       await axios
         .post("http://localhost:3000/signup", {
@@ -21,9 +25,9 @@ const SignUp = () => {
           password,
         })
         .then((res) => {
-          if (res.data.status == 401) {
-            toast.error(res.data.error);
-          }
+          res.data.status == 201
+            ? navigate("/login")
+            : toast.error(res.data.error);
         });
     } catch (error) {
       console.log(error);
@@ -37,7 +41,7 @@ const SignUp = () => {
           <div>
             <h1 className="text-6xl font-bold">Sign up</h1>
             <p className="text-xl mt-3">Hi! create your account first buddy</p>
-            <form className="mt-14" action="">
+            <form className="mt-14" method="post" onSubmit={submit}>
               <ul className="space-y-7">
                 <li className="space-y-2">
                   <Label
@@ -47,6 +51,7 @@ const SignUp = () => {
                     value="Email"
                   />
                   <TextInput
+                    sizing="default"
                     color="default"
                     id="email"
                     name="email"
@@ -66,6 +71,7 @@ const SignUp = () => {
                     value="Username"
                   />
                   <TextInput
+                    sizing="default"
                     color="default"
                     id="username"
                     name="username"
@@ -84,7 +90,7 @@ const SignUp = () => {
                     htmlFor="username"
                     value="password"
                   />
-                  <div className="flex justify-normal items-center border-2 rounded-lg pr-2 focus-within:box-content focus-within:border-2 focus-within:border-amber-500">
+                  <div className="flex justify-normal items-center bg-gray-100 rounded-lg pr-4">
                     <PasswordInput
                       onChange={(e) => {
                         setPassword(e.target.value);
@@ -94,10 +100,10 @@ const SignUp = () => {
                 </li>
                 <li>
                   <Button
+                    type="submit"
                     className="w-full"
                     color="default"
-                    size="lg"
-                    onClick={submit}
+                    size="default"
                   >
                     Sign up
                   </Button>

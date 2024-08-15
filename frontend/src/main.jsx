@@ -4,6 +4,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from "./components/pages/auth/SignUp";
 import Login from "./components/pages/auth/Login";
+import Home from "./components/pages/home/Home";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/",
+    element: <Home />,
   },
 ]);
 
@@ -27,9 +32,11 @@ const customTheme = {
   textInput: {
     field: {
       input: {
+        sizes: {
+          default: "p-4",
+        },
         colors: {
-          default: "bg-white border-2 focus:outline-amber-500",
-          password: "border-0 focus:outline-none",
+          default: "bg-gray-100 focus:outline-none border-none",
         },
       },
     },
@@ -37,6 +44,9 @@ const customTheme = {
   button: {
     color: {
       default: "bg-gradient-to-r from-amber-600 to-amber-400 text-white",
+    },
+    size: {
+      default: "p-3",
     },
   },
 };

@@ -20,7 +20,7 @@ export const deleteUser = async (req, res) => {
       },
     });
 
-    return res.send(200);
+    return res.sendStatus(200);
   } catch (error) {
     console.log(error);
   }

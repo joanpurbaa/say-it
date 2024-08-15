@@ -1,9 +1,37 @@
+import { useState } from "react";
 import { Label, TextInput, Button } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthRightSection from "../../templates/AuthRightSection";
 import PasswordInput from "../../atoms/PasswordInput";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const submit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios
+        .post("http://localhost:3000/login", {
+          email,
+          username,
+          password,
+        })
+        .then((res) => {
+          res.data.status == 200 ? navigate("/") : toast.error(res.data.error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="h-screen grid grid-cols-12">
@@ -11,7 +39,7 @@ const Login = () => {
           <div>
             <h1 className="text-6xl font-bold">Login</h1>
             <p className="text-xl mt-3">Hi! welcome back buddy</p>
-            <form className="mt-14" action="">
+            <form className="mt-14" method="post" onSubmit={submit}>
               <ul className="space-y-7">
                 <li className="space-y-2">
                   <Label
@@ -21,12 +49,16 @@ const Login = () => {
                     value="Email"
                   />
                   <TextInput
+                    sizing="default"
                     color="default"
                     id="email"
                     name="email"
                     placeholder="enter your email"
                     autoComplete="off"
                     required
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
                   />
                 </li>
                 <li className="space-y-2">
@@ -37,12 +69,16 @@ const Login = () => {
                     value="Username"
                   />
                   <TextInput
+                    sizing="default"
                     color="default"
                     id="username"
                     name="username"
                     placeholder="enter your username"
                     autoComplete="off"
                     required
+                    onChange={(e) => {
+                      setUsername(e.target.value);
+                    }}
                   />
                 </li>
                 <li className="space-y-2">
@@ -52,12 +88,23 @@ const Login = () => {
                     htmlFor="username"
                     value="password"
                   />
-                  <div className="flex justify-normal items-center border-2 rounded-lg pr-2 focus-within:box-content focus-within:border-2 focus-within:border-amber-500">
-                    <PasswordInput/>
+                  <div className="flex justify-normal items-center bg-gray-100 rounded-lg pr-4">
+                    <PasswordInput
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                      value={password}
+                    />
                   </div>
                 </li>
                 <li>
-                  <Button className="w-full" color="default" size="lg">
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    color="default"
+                    size="default"
+                    onClick={submit}
+                  >
                     Login
                   </Button>
                 </li>
@@ -78,6 +125,7 @@ const Login = () => {
           <AuthRightSection />
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

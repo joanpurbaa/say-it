@@ -103,7 +103,6 @@ const Login = () => {
                     className="w-full"
                     color="default"
                     size="default"
-                    onClick={submit}
                   >
                     Login
                   </Button>

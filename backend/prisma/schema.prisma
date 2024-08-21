@@ -18,4 +18,14 @@ model user {
   email String
   username String
   password  String
+  refreshToken String?
+  posts posts[]
+}
+
+model posts {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  author user @relation(fields: [authorId], references: [id])
+  authorId String @db.ObjectId
+  description String
+  date String
 }

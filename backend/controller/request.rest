@@ -1,0 +1,36 @@
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "joan@gmail.com",
+  "username": "joan",
+  "password": "121206"
+}
+
+###
+GET http://localhost:3000/show
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzJkNzY3YmZlYjVlNjdkYTFmYTA4MiIsImVtYWlsIjoiam9hbkBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImpvYW4iLCJpYXQiOjE3MjQxNjQ5NjAsImV4cCI6MTcyNDE2NDk3NX0.7FFlRTstcXVLFN89mVlrUVEL-fyEIyqapdOTmFX5UB4
+
+###
+GET http://localhost:3000/token
+
+###
+GET http://localhost:3000/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzJkNzY3YmZlYjVlNjdkYTFmYTA4MiIsImVtYWlsIjoiam9hbkBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImpvYW4iLCJpYXQiOjE3MjQxNjk3MzksImV4cCI6MTcyNDE2OTc1NH0.lOnTVNVUjZdvPPtcy7H9EszNRdZSbw9kdrePbLZlCwQ
+
+###
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+  "authorId" : "66c2d767bfeb5e67da1fa082",
+  "title" : "i am jaon"
+}
+
+###
+POST http://localhost:3000/logout
+Content-Type: application/json
+
+{
+  "id" : "66c2d767bfeb5e67da1fa082"
+}

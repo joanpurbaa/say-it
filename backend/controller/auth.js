@@ -1,6 +1,8 @@
+import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import validator from "validator";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
@@ -89,16 +91,71 @@ export const login = async (req, res) => {
       bcrypt.compare(
         req.body.password,
         emailFromDb[0].password,
-        (error, result) => {
-          return result
-            ? res.json({ status: 200 })
-            : res.json({
-                status: 401,
-                error: "Wrong password",
-              });
+        async (error, result) => {
+          if (result) {
+            const payload = {
+              id: emailFromDb[0].id,
+              email: emailFromDb[0].email,
+              username: emailFromDb[0].username,
+            };
+
+            const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN, {
+              expiresIn: "15s",
+            });
+
+            const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN, {
+              expiresIn: "1d",
+            });
+
+            await prisma.user.update({
+              where: {
+                id: emailFromDb[0].id,
+              },
+              data: {
+                refreshToken: refreshToken,
+              },
+            });
+
+            res.cookie("refreshToken", refreshToken, {
+              httpOnly: true,
+              maxAge: 24 * 60 * 60 * 1000,
+            });
+            res.json({ accessToken, status: 200 });
+          } else {
+            res.json({
+              status: 401,
+              error: "Wrong password",
+            });
+          }
         }
       );
     }
+  } catch (error) {
+    console.log(error);
+  }
+
+  // !production
+  // catch (error) {
+  //   return res.json({ status: 400, error: "Bad request" });
+  // }
+};
+
+export const logout = async (req, res) => {
+  try {
+    await prisma.user.update({
+      where: {
+        id: req.body.id,
+      },
+      data: {
+        refreshToken: null,
+      },
+    });
+
+    res.cookie("refreshToken", "", {
+      httpOnly: true,
+    });
+
+    res.sendStatus(200);
   } catch (error) {
     console.log(error);
   }

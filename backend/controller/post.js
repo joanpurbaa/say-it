@@ -23,6 +23,20 @@ export const post = async (req, res) => {
   }
 };
 
+export const showById = async (req, res) => {
+  try {
+    const result = await prisma.posts.findMany({
+      where: {
+        authorId: req.params.authorid,
+      },
+    });
+
+    return res.json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const showPost = async (req, res) => {
   try {
     const result = await prisma.posts.findMany();

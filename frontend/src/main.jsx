@@ -7,7 +7,7 @@ import Login from "./components/pages/auth/Login";
 import Home from "./components/pages/home/Home";
 import axios from "axios";
 
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
 
 const router = createBrowserRouter([
   {
@@ -47,9 +47,17 @@ const customTheme = {
   button: {
     color: {
       default: "bg-gradient-to-r from-amber-600 to-amber-400 text-white",
+      logout: "bg-red-500 text-white",
+      add: "bg-amber-700 text-white",
+      cancelLogout: "bg-white text-zinc-700",
     },
     size: {
       default: "p-3",
+    },
+  },
+  textarea: {
+    colors: {
+      default: "bg-amber-500 focus:outline-none",
     },
   },
 };

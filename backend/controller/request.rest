@@ -2,9 +2,9 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "email": "joan@gmail.com",
-  "username": "joan",
-  "password": "121206"
+  "email": "radit@gmail.com",
+  "username": "radit",
+  "password": "radit"
 }
 
 ###
@@ -19,13 +19,8 @@ GET http://localhost:3000/post
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzJkNzY3YmZlYjVlNjdkYTFmYTA4MiIsImVtYWlsIjoiam9hbkBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImpvYW4iLCJpYXQiOjE3MjQxNjk3MzksImV4cCI6MTcyNDE2OTc1NH0.lOnTVNVUjZdvPPtcy7H9EszNRdZSbw9kdrePbLZlCwQ
 
 ###
-POST http://localhost:3000/post
-Content-Type: application/json
-
-{
-  "authorId" : "66c2d767bfeb5e67da1fa082",
-  "title" : "i am jaon"
-}
+GET http://localhost:3000/showbyid/66c46f25a3f9826cee75cba8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQ2ZjI1YTNmOTgyNmNlZTc1Y2JhOCIsImVtYWlsIjoicmFkaXRAZ21haWwuY29tIiwidXNlcm5hbWUiOiJyYWRpdCIsImlhdCI6MTcyNDMzMjM3NiwiZXhwIjoxNzI0MzMyMzkxfQ.vgBAPsd0-4TITxcGjUVDAosHGCpY9_VgFHMmN7rc9Vw
 
 ###
 POST http://localhost:3000/logout

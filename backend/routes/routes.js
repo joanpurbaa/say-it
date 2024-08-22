@@ -3,7 +3,7 @@ import { signUp, login, logout } from "../controller/auth.js";
 import { showUser, deleteUser } from "../controller/admin.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { refreshToken } from "../controller/refreshToken.js";
-import { post, showPost } from "../controller/post.js";
+import { post, showPost, showById } from "../controller/post.js";
 
 const route = express.Router();
 
@@ -14,8 +14,9 @@ route.post("/logout", logout);
 route.get("/token", refreshToken);
 
 // post
+route.get("/showbyid/:authorid", verifyToken, showById);
 route.post("/post", post);
-route.get("/post", verifyToken, showPost);
+route.get("/show", verifyToken, showPost);
 
 // admin
 route.get("/show", showUser);

@@ -14,7 +14,7 @@ export const post = async (req, res) => {
     await prisma.posts.create({
       data: {
         authorId: req.body.authorId,
-        description: req.body.title,
+        description: req.body.description,
         date: formatDate,
       },
     });
@@ -28,6 +28,9 @@ export const showById = async (req, res) => {
     const result = await prisma.posts.findMany({
       where: {
         authorId: req.params.authorid,
+      },
+      orderBy: {
+        id: "desc",
       },
     });
 

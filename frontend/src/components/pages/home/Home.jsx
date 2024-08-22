@@ -11,6 +11,7 @@ const Home = () => {
   const [username, setUsername] = useState();
   const [exp, setExp] = useState();
   const [posts, setPosts] = useState();
+  const [description, setDescription] = useState();
   const [openModal, setOpenModal] = useState(false);
 
   const refreshToken = async () => {
@@ -66,6 +67,21 @@ const Home = () => {
     navigate("/login");
   };
 
+  const submit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.post("http://localhost:3000/post", {
+        authorId: id,
+        description,
+      });
+
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const initialize = async () => {
       await refreshToken();
@@ -78,7 +94,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="grid grid-cols-12 h-screen py-5">
+      <div className="homeBackground bg-cover bg-no-repeat bg-center grid grid-cols-12 h-screen py-5">
         <div className="col-start-5 col-span-4">
           <header className="flex justify-center">
             <nav className="bg-amber-500 p-2 rounded-full">
@@ -108,15 +124,20 @@ const Home = () => {
                 log out
               </button>
             </div>
-            <form className="flex flex-col gap-y-5 mt-5" action="">
+            <form
+              className="flex flex-col gap-y-5 mt-5"
+              method="post"
+              onSubmit={submit}
+            >
               <Textarea
                 color="default"
                 className="p-5 resize-none placeholder-white text-white text-lg font-medium"
                 placeholder="say what you want to say here..."
+                onChange={(e) => setDescription(e.target.value)}
                 required
                 rows={9}
               />
-              <Button color="add" size="lg" className="w-full">
+              <Button type="submit" color="add" size="lg" className="w-full">
                 add
               </Button>
             </form>

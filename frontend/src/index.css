@@ -11,3 +11,7 @@
 .authBackground {
   background-image: url('/authBackground.png');
 }
+
+.homeBackground {
+  background-image: url('/homeBackground.png');
+}

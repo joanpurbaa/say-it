@@ -24,10 +24,13 @@ const SignUp = () => {
           username,
           password,
         })
-        .then((res) => {
-          res.data.status == 201
-            ? navigate("/login")
-            : toast.error(res.data.error);
+        .then(async (res) => {
+          if (res.data.status == 201) {
+            await axios.post("http://localhost:3000/sendotp");
+            navigate("/verify");
+          } else {
+            toast.error(res.data.error);
+          }
         });
     } catch (error) {
       console.log(error);

@@ -25,3 +25,13 @@ export const deleteUser = async (req, res) => {
     console.log(error);
   }
 };
+
+export const deleteAllPosts = async (req, res) => {
+  try {
+    await prisma.posts.deleteMany();
+
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+  }
+};

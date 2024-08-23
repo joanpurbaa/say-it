@@ -44,7 +44,10 @@ export const showById = async (req, res) => {
 
 export const showPost = async (req, res) => {
   try {
-    const result = await prisma.posts.findMany();
+    const result = await prisma.posts.findMany({
+      orderBy: { id: "desc" },
+      include: { author: true },
+    });
 
     return res.json(result);
   } catch (error) {

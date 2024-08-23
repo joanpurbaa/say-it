@@ -3,9 +3,11 @@ import { Flowbite } from "flowbite-react";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from "./pages/auth/SignUp";
+import VerifyOtp from "./pages/auth/VerifyOtp";
 import Login from "./pages/auth/Login";
 import Home from "./pages/home/Home";
 import axios from "axios";
+import Top from "./pages/home/Top";
 
 axios.defaults.withCredentials = true;
 
@@ -15,12 +17,20 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
+    path: "/verify",
+    element: <VerifyOtp />,
+  },
+  {
     path: "/login",
     element: <Login />,
   },
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/top",
+    element: <Top />,
   },
 ]);
 

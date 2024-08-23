@@ -18,6 +18,7 @@ model user {
   email String
   username String
   password  String
+  otp Int?
   refreshToken String?
   posts posts[]
 }

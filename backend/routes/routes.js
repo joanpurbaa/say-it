@@ -1,6 +1,6 @@
 import express from "express";
-import { signUp, login, logout } from "../controller/auth.js";
-import { showUser, deleteUser } from "../controller/admin.js";
+import { signUp, login, logout, sendOtp, verifyOtp } from "../controller/auth.js";
+import { showUser, deleteUser, deleteAllPosts } from "../controller/admin.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { refreshToken } from "../controller/refreshToken.js";
 import { post, showPost, showById } from "../controller/post.js";
@@ -9,6 +9,8 @@ const route = express.Router();
 
 // auth
 route.post("/signup", signUp);
+route.post("/sendotp", sendOtp);
+route.post("/verifyotp", verifyOtp);
 route.post("/login", login);
 route.post("/logout", logout);
 route.get("/token", refreshToken);
@@ -21,5 +23,6 @@ route.get("/show", verifyToken, showPost);
 // admin
 route.get("/show", showUser);
 route.delete("/delete/:id", deleteUser);
+route.delete("/deleteallposts", deleteAllPosts);
 
 export default route;

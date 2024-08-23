@@ -2,16 +2,15 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
-import { Textarea, Button, Modal } from "flowbite-react";
+import {  Button, Modal } from "flowbite-react";
 
-const Home = () => {
+const Top = () => {
   const navigate = useNavigate();
   const [token, setToken] = useState();
   const [id, setId] = useState();
   const [username, setUsername] = useState();
   const [exp, setExp] = useState();
   const [posts, setPosts] = useState();
-  const [description, setDescription] = useState();
   const [openModal, setOpenModal] = useState(false);
 
   const refreshToken = async () => {
@@ -50,13 +49,14 @@ const Home = () => {
     }
   );
 
-  const showPostByUserId = async () => {
-    const result = await axiosJWT.get(`http://localhost:3000/showbyid/${id}`, {
+  const showPosts = async () => {
+    const result = await axiosJWT.get(`http://localhost:3000/show`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
+    console.log(result);
     setPosts(result.data);
   };
 
@@ -67,26 +67,11 @@ const Home = () => {
     navigate("/login");
   };
 
-  const submit = async (e) => {
-    e.preventDefault();
-
-    try {
-      await axios.post("http://localhost:3000/post", {
-        authorId: id,
-        description,
-      });
-
-      location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     const initialize = async () => {
       await refreshToken();
       if (id) {
-        showPostByUserId();
+        showPosts();
       }
     };
     initialize();
@@ -101,13 +86,13 @@ const Home = () => {
               <ul className="flex">
                 <Link
                   to="/"
-                  className="bg-amber-700 py-4 px-12 rounded-full font-semibold text-white text-lg"
+                  className="py-4 px-12 rounded-full font-semibold text-white text-lg"
                 >
                   add
                 </Link>
                 <Link
                   to="/top"
-                  className="py-4 px-12 font-semibold text-white text-lg"
+                  className="bg-amber-700 py-4 px-12 rounded-full font-semibold text-white text-lg"
                 >
                   top
                 </Link>
@@ -126,23 +111,7 @@ const Home = () => {
                 log out
               </button>
             </div>
-            <form className="flex flex-col gap-y-5 mt-5" method="post">
-              <Textarea
-                color="default"
-                className="p-5 resize-none placeholder-white text-white text-lg font-medium"
-                placeholder="say what you want to say here..."
-                onChange={(e) => setDescription(e.target.value)}
-                required
-                rows={9}
-              />
-              <Button onClick={submit} color="add" size="lg" className="w-full">
-                add
-              </Button>
-            </form>
             <div className="mt-5">
-              <p className="text-zinc-700 font-semibold text-lg">
-                your post 📑
-              </p>
               {posts
                 ? posts.map((post, index) => (
                     <div
@@ -155,7 +124,9 @@ const Home = () => {
                           src="/unknown.jpeg"
                           alt=""
                         />
-                        <p className="font-semibold text-lg">{username}</p>
+                        <p className="font-semibold text-lg">
+                          {post.author.username}
+                        </p>
                       </div>
                       <div className="mt-3">
                         <p className="text-lg">{post.description}</p>
@@ -194,4 +165,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Top;

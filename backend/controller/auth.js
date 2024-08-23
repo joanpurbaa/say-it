@@ -3,6 +3,8 @@ import { PrismaClient } from "@prisma/client";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
+import { jwtDecode } from "jwt-decode";
 
 const prisma = new PrismaClient();
 
@@ -43,8 +45,87 @@ export const signUp = async (req, res) => {
         },
       });
 
-      return res.json({ status: 201 });
+      const emailToken = jwt.sign(
+        { email: req.body.email, username: req.body.username },
+        process.env.ACCESS_TOKEN
+      );
+
+      res.cookie("emailToken", emailToken, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+      res.json({ status: 201 });
     });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const sendOtp = async (req, res) => {
+  const emailToken = jwtDecode(req.cookies.emailToken);
+  const otp = Math.floor(1000 + Math.random() * 9000);
+
+  const emailTokenDatas = await prisma.user.findFirst({
+    where: {
+      email: emailToken.email,
+    },
+  });
+
+  await prisma.user.updateMany({
+    where: {
+      id: emailTokenDatas.id,
+    },
+    data: {
+      otp: otp,
+    },
+  });
+
+  const html = `
+    <h1 style="color: #f59e0b; text-align: center;">Hi ${emailToken.username}, i am Joan, the creator!</h1>
+    <br/>
+    <p style="font-size: 18px; text-align: center;">Congratulations and thank you for registering on our platform. Have fun and here is your <b>OTP</b> code! 🥳</p>
+    <br/>
+    <h1 style="font-size: 70px; color: #f59e0b; text-align: center;">${otp}</h1>`;
+
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "joanpurba4@gmail.com",
+      pass: "ktjzygghqydnyvot",
+    },
+  });
+
+  await transporter.sendMail({
+    from: {
+      name: "Say it!",
+      address: "joanpurba4@gmail.com",
+    },
+    to: emailToken.email,
+    subject: "Your OTP Code",
+    html,
+  });
+
+  res.json({ status: 200 });
+};
+
+export const verifyOtp = async (req, res) => {
+  try {
+    const result = await prisma.user.findMany({
+      where: {
+        otp: req.body.otp,
+      },
+    });
+
+    if (result[0]) {
+      res.json({status: 200})
+    } else {
+      res.json({
+        status: 401,
+        error: "Wrong OTP code",
+      });
+    }
   } catch (error) {
     console.log(error);
   }

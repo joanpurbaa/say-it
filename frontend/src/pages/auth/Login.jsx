@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Label, TextInput, Button } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthRightSection from "../../templates/AuthRightSection";
-import PasswordInput from "../../atoms/PasswordInput";
+import AuthRightSection from "../../components/templates/AuthRightSection";
+import PasswordInput from "../../components/atoms/PasswordInput";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SignUp = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,15 +19,13 @@ const SignUp = () => {
 
     try {
       await axios
-        .post("http://localhost:3000/signup", {
+        .post("http://localhost:3000/login", {
           email,
           username,
           password,
         })
         .then((res) => {
-          res.data.status == 201
-            ? navigate("/login")
-            : toast.error(res.data.error);
+          res.data.status == 200 ? navigate("/") : toast.error(res.data.error);
         });
     } catch (error) {
       console.log(error);
@@ -39,8 +37,8 @@ const SignUp = () => {
       <div className="h-screen grid grid-cols-12">
         <div className="col-span-4 flex flex-col justify-between text-zinc-700 p-20">
           <div>
-            <h1 className="text-6xl font-bold">Sign up</h1>
-            <p className="text-xl mt-3">Hi! create your account first buddy</p>
+            <h1 className="text-6xl font-bold">Login</h1>
+            <p className="text-xl mt-3">Hi! welcome back buddy</p>
             <form className="mt-14" method="post" onSubmit={submit}>
               <ul className="space-y-7">
                 <li className="space-y-2">
@@ -95,6 +93,7 @@ const SignUp = () => {
                       onChange={(e) => {
                         setPassword(e.target.value);
                       }}
+                      value={password}
                     />
                   </div>
                 </li>
@@ -105,14 +104,14 @@ const SignUp = () => {
                     color="default"
                     size="default"
                   >
-                    Sign up
+                    Login
                   </Button>
                 </li>
                 <li>
                   <p>
-                    Have an account?{" "}
-                    <Link className="text-amber-500" to="/login">
-                      login
+                    Don&apos;t have an account?{" "}
+                    <Link className="text-amber-500" to="/signup">
+                      sign up
                     </Link>
                   </p>
                 </li>
@@ -130,4 +129,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;

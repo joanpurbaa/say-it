@@ -18,6 +18,8 @@ export const post = async (req, res) => {
         date: formatDate,
       },
     });
+
+    return res.json({ staus: 200 });
   } catch (error) {
     console.log(error);
   }

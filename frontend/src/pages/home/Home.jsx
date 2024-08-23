@@ -94,7 +94,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="homeBackground bg-cover bg-no-repeat bg-center grid grid-cols-12 h-screen py-5">
+      <div className="homeBackground bg-fixed bg-cover bg-no-repeat bg-center grid grid-cols-12 py-5">
         <div className="col-start-5 col-span-4">
           <header className="flex justify-center">
             <nav className="bg-amber-500 p-2 rounded-full">
@@ -124,11 +124,7 @@ const Home = () => {
                 log out
               </button>
             </div>
-            <form
-              className="flex flex-col gap-y-5 mt-5"
-              method="post"
-              onSubmit={submit}
-            >
+            <form className="flex flex-col gap-y-5 mt-5" method="post">
               <Textarea
                 color="default"
                 className="p-5 resize-none placeholder-white text-white text-lg font-medium"
@@ -137,7 +133,7 @@ const Home = () => {
                 required
                 rows={9}
               />
-              <Button type="submit" color="add" size="lg" className="w-full">
+              <Button onClick={submit} color="add" size="lg" className="w-full">
                 add
               </Button>
             </form>

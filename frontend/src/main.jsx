@@ -2,9 +2,9 @@ import { createRoot } from "react-dom/client";
 import { Flowbite } from "flowbite-react";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SignUp from "./components/pages/auth/SignUp";
-import Login from "./components/pages/auth/Login";
-import Home from "./components/pages/home/Home";
+import SignUp from "./pages/auth/SignUp";
+import Login from "./pages/auth/Login";
+import Home from "./pages/home/Home";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;

@@ -79,20 +79,20 @@ const Top = () => {
 
   return (
     <>
-      <div className="homeBackground bg-fixed bg-cover bg-no-repeat bg-center grid grid-cols-12 h-dvh py-5">
+      <div className="bg-fixed bg-cover bg-no-repeat bg-center grid grid-cols-12 h-dvh py-5">
         <div className="col-start-5 col-span-4">
           <header className="flex justify-center">
             <nav className="bg-amber-500 p-2 rounded-full">
               <ul className="flex">
                 <Link
                   to="/"
-                  className="py-4 px-12 rounded-full font-semibold text-white text-lg"
+                  className="py-4 px-12 rounded-full font-semibold text-white text-md"
                 >
                   add
                 </Link>
                 <Link
                   to="/top"
-                  className="bg-amber-700 py-4 px-12 rounded-full font-semibold text-white text-lg"
+                  className="bg-amber-700 py-4 px-12 rounded-full font-semibold text-white text-md"
                 >
                   top
                 </Link>
@@ -101,12 +101,12 @@ const Top = () => {
           </header>
           <main className="py-10">
             <div className="flex justify-between">
-              <p className="text-zinc-700 font-semibold text-lg">
+              <p className="text-zinc-700 font-semibold text-md">
                 welcome {username}👋
               </p>
               <button
                 onClick={() => setOpenModal(true)}
-                className="text-red-500 font-semibold text-lg"
+                className="text-red-500 font-semibold text-md"
               >
                 log out
               </button>
@@ -124,13 +124,13 @@ const Top = () => {
                           src="/unknown.jpeg"
                           alt=""
                         />
-                        <p className="font-semibold text-lg">
+                        <p className="font-semibold text-md">
                           {post.author.username}
                         </p>
                       </div>
                       <div className="mt-3">
-                        <p className="text-lg">{post.description}</p>
-                        <p className="text-end italic text-lg">{post.date}</p>
+                        <p className="text-md">{post.description}</p>
+                        <p className="text-end italic text-md">{post.date}</p>
                       </div>
                     </div>
                   ))
@@ -147,7 +147,7 @@ const Top = () => {
       >
         <Modal.Body className="bg-amber-500 rounded-lg">
           <div className="text-center">
-            <h3 className="my-16 text-lg font-normal text-white">
+            <h3 className="my-16 text-md font-normal text-white">
               Are you sure you want to log out?
             </h3>
             <div className="flex justify-center gap-4">

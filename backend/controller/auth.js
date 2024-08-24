@@ -118,14 +118,9 @@ export const verifyOtp = async (req, res) => {
       },
     });
 
-    if (result[0]) {
-      res.json({status: 200})
-    } else {
-      res.json({
-        status: 401,
-        error: "Wrong OTP code",
-      });
-    }
+    result[0]
+      ? res.json({ status: 200 })
+      : res.json({ status: 401, error: "Wrong OTP code" });
   } catch (error) {
     console.log(error);
   }

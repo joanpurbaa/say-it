@@ -94,34 +94,46 @@ const Home = () => {
 
   return (
     <>
-      <div className="homeBackground bg-fixed bg-cover bg-no-repeat bg-center grid grid-cols-12 h-dvh py-5">
+      <div className="grid grid-cols-12 h-dvh py-5">
         <div className="col-start-5 col-span-4">
-          <header className="flex justify-center">
-            <nav className="bg-amber-500 p-2 rounded-full">
-              <ul className="flex">
-                <Link
-                  to="/"
-                  className="bg-amber-700 py-4 px-12 rounded-full font-semibold text-white text-lg"
-                >
-                  add
-                </Link>
-                <Link
-                  to="/top"
-                  className="py-4 px-12 font-semibold text-white text-lg"
-                >
-                  top
-                </Link>
-              </ul>
-            </nav>
+          <header className="flex justify-center bg-amber-500 shadow-lg rounded-lg py-5">
+            <Link to="/" className="relative group">
+              <p className="absolute text-2xl scale-125 transition-all group-hover:scale-100 -rotate-12 -left-8 -top-2">
+                😍
+              </p>
+              <h1 className="text-white font-bold text-2xl">Say it!</h1>
+              <p className="absolute text-lg scale-100 transition-all group-hover:scale-150 rotate-12 -right-5 -bottom-3">
+                💩
+              </p>
+            </Link>
           </header>
-          <main className="py-10">
+          <section className="text-center text-zinc-700  py-10">
+            <h1 className="font-bold text-4xl">
+              A place where you can express everything
+            </h1>
+            <p className="text-base px-10 mt-10">
+              <b className="underline underline-offset-4 decoration-red-600">
+                Check it out
+              </b>
+              ,{" "}
+              <b className="underline underline-offset-4 decoration-red-600">
+                get inspired
+              </b>
+              ,{" "}
+              <b className="underline underline-offset-4 decoration-red-600">
+                add your new story here!{" "}
+              </b>
+              and don&apos;t forget, I&apos;m here with you 🫂
+            </p>
+          </section>
+          <main>
             <div className="flex justify-between">
-              <p className="text-zinc-700 font-semibold text-lg">
+              <p className="text-zinc-700 font-semibold text-base">
                 welcome {username}👋
               </p>
               <button
                 onClick={() => setOpenModal(true)}
-                className="text-red-500 font-semibold text-lg"
+                className="text-red-500 font-semibold text-base"
               >
                 log out
               </button>
@@ -129,37 +141,50 @@ const Home = () => {
             <form className="flex flex-col gap-y-5 mt-5" method="post">
               <Textarea
                 color="default"
-                className="p-5 resize-none placeholder-white text-white text-lg font-medium"
+                className="p-5 resize-none placeholder-white text-white text-base font-medium"
                 placeholder="say what you want to say here..."
                 onChange={(e) => setDescription(e.target.value)}
                 required
                 rows={9}
               />
-              <Button onClick={submit} color="add" size="lg" className="w-full">
+              <Button
+                onClick={submit}
+                color="add"
+                size="lg"
+                className="w-full shadow-lg"
+              >
                 add
               </Button>
             </form>
             <div className="mt-5">
-              <p className="text-zinc-700 font-semibold text-lg">
+              <p className="text-zinc-700 font-semibold text-base">
                 your post 📑
               </p>
               {posts
                 ? posts.map((post, index) => (
                     <div
+                      className="relative mt-5 flex items-center shadow-lg"
                       key={index}
-                      className="mt-5 bg-amber-500 rounded-lg text-white p-5"
                     >
-                      <div className="flex items-center gap-x-2">
-                        <img
-                          className="w-11 h-11 rounded-full"
-                          src="/unknown.jpeg"
-                          alt=""
-                        />
-                        <p className="font-semibold text-lg">{username}</p>
+                      <div className="w-full bg-amber-500 rounded-lg text-white p-5">
+                        <p className="text-base">{post.description}</p>
+                        <p className="mt-8 text-sm">
+                          By {username} on {post.date}
+                        </p>
                       </div>
-                      <div className="mt-3">
-                        <p className="text-lg">{post.description}</p>
-                        <p className="text-end italic text-lg">{post.date}</p>
+                      <div className="absolute -right-20">
+                        <form
+                          className="flex flex-col items-center gap-y-1"
+                          action=""
+                        >
+                          <button className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 rotate-6">
+                            😍
+                          </button>
+                          <p className="font-bold text-zinc-700">68</p>
+                          <button className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 -rotate-6">
+                            💩
+                          </button>
+                        </form>
                       </div>
                     </div>
                   ))
@@ -170,13 +195,13 @@ const Home = () => {
       </div>
       <Modal
         show={openModal}
-        size="md"
+        size="batext-base"
         onClose={() => setOpenModal(false)}
         popup
       >
         <Modal.Body className="bg-amber-500 rounded-lg">
           <div className="text-center">
-            <h3 className="my-16 text-lg font-normal text-white">
+            <h3 className="my-16 text-base font-normal text-white">
               Are you sure you want to log out?
             </h3>
             <div className="flex justify-center gap-4">

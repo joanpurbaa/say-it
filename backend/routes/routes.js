@@ -1,5 +1,11 @@
 import express from "express";
-import { signUp, login, logout, sendOtp, verifyOtp } from "../controller/auth.js";
+import {
+  signUp,
+  login,
+  logout,
+  sendOtp,
+  verifyOtp,
+} from "../controller/auth.js";
 import { showUser, deleteUser, deleteAllPosts } from "../controller/admin.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { refreshToken } from "../controller/refreshToken.js";

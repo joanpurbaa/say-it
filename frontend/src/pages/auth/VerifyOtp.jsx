@@ -49,7 +49,7 @@ const VerifyOtp = () => {
                     color="default"
                     size="default"
                   >
-                    Login
+                    Verify
                   </Button>
                 </li>
               </ul>

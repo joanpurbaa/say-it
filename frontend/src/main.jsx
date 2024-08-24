@@ -67,7 +67,7 @@ const customTheme = {
   },
   textarea: {
     colors: {
-      default: "bg-amber-500 focus:outline-none",
+      default: "bg-amber-500 focus:outline-none border-0 shadow-lg",
     },
   },
 };

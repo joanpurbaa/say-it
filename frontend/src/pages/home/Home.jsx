@@ -57,7 +57,7 @@ const Home = () => {
       },
     });
 
-    setPosts(result.data);
+    result.data[0] == undefined ? setPosts(undefined) : setPosts(result.data);
   };
 
   const logout = async () => {
@@ -179,35 +179,37 @@ const Home = () => {
               <p className="text-zinc-700 font-semibold text-base">
                 your post 📑
               </p>
-              {posts
-                ? posts.map((post, index) => (
-                    <div
-                      className="relative mt-5 flex items-center shadow-lg"
-                      key={index}
-                    >
-                      <div className="w-full bg-amber-500 rounded-lg text-white p-5">
-                        <p className="text-base">{post.description}</p>
-                        <p className="mt-8 text-sm">
-                          By {username} on {post.date}
-                        </p>
-                      </div>
-                      <div className="absolute -right-20">
-                        <form
-                          className="flex flex-col items-center gap-y-1"
-                          action=""
-                        >
-                          <button className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 rotate-6">
-                            😍
-                          </button>
-                          <p className="font-bold text-zinc-700">68</p>
-                          <button className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 -rotate-6">
-                            💩
-                          </button>
-                        </form>
-                      </div>
+              {posts == undefined ? (
+                <img className="w-96 mx-auto" src="/notFound.png" alt="" />
+              ) : (
+                posts.map((post, index) => (
+                  <div
+                    className="relative mt-5 flex items-center shadow-lg"
+                    key={index}
+                  >
+                    <div className="w-full bg-amber-500 rounded-lg text-white p-5">
+                      <p className="text-base">{post.description}</p>
+                      <p className="mt-8 text-sm">
+                        By {username} on {post.date}
+                      </p>
                     </div>
-                  ))
-                : ""}
+                    <div className="absolute -right-20">
+                      <form
+                        className="flex flex-col items-center gap-y-1"
+                        action=""
+                      >
+                        <button className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 rotate-6">
+                          😍
+                        </button>
+                        <p className="font-bold text-zinc-700">68</p>
+                        <button className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 -rotate-6">
+                          💩
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </main>
         </div>

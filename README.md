@@ -21,7 +21,7 @@ A place where you can pour out your heart, and be seen by everyone
 
 ## Demo
 
-Not available yet, currently under development
+Not available yet, currently under development!
 
 ## Run Locally
 
@@ -71,11 +71,11 @@ Start the server
 
 - Desktop
 
-Not available yet, currently under development
+Not available yet, currently under development!
 
 - Mobile
 
-Not available yet, currently under development
+Not available yet, currently under development!
 
 ## Feedback
 

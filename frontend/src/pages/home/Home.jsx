@@ -82,6 +82,17 @@ const Home = () => {
     }
   };
 
+  const like = async (postId) => {
+    try {
+      await axios.post("http://localhost:3000/like", {
+        userId: id,
+        postId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const initialize = async () => {
       await refreshToken();
@@ -196,13 +207,22 @@ const Home = () => {
                     <div className="absolute -right-20">
                       <form
                         className="flex flex-col items-center gap-y-1"
-                        action=""
+                        method="post"
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          like(post.id);
+                        }}
                       >
-                        <button className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 rotate-6">
+                        <button
+                          type="submit"
+                          className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 rotate-6 rounded-md"
+                        >
                           😍
                         </button>
-                        <p className="font-bold text-zinc-700">68</p>
-                        <button className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 -rotate-6">
+                      </form>
+                      <p className="font-bold text-zinc-700">68</p>
+                      <form action="">
+                        <button className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 -rotate-6 rounded-md">
                           💩
                         </button>
                       </form>

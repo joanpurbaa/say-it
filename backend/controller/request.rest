@@ -46,3 +46,12 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/deleteallposts
+
+###
+DELETE http://localhost:3000/deleteallikes
+
+###
+GET http://localhost:3000/like
+
+###
+GET http://localhost:3000/showlikesbyid/

@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client { 
-  provider = "prisma-client-js" 
+  provider = "prisma-client-js"
 } 
 
 datasource db { 
@@ -21,6 +21,7 @@ model user {
   otp Int?
   refreshToken String?
   posts posts[]
+  likes likes[]
 }
 
 model posts {
@@ -29,4 +30,13 @@ model posts {
   authorId String? @db.ObjectId
   description String
   date String
+  likes likes[]
+}
+
+model likes{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  user user? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  post posts? @relation(fields: [postId], references: [id], onDelete: SetNull)
+  userId String? @db.ObjectId
+  postId String? @db.ObjectId
 }

@@ -10,6 +10,7 @@ import { showUser, deleteUser, deleteAllPosts } from "../controller/admin.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { refreshToken } from "../controller/refreshToken.js";
 import { post, showPost, showById } from "../controller/post.js";
+import { deleteAllLikes, like, showLikes } from "../controller/like.js";
 
 const route = express.Router();
 
@@ -25,6 +26,11 @@ route.get("/token", refreshToken);
 route.get("/showbyid/:authorid", verifyToken, showById);
 route.post("/post", post);
 route.get("/show", verifyToken, showPost);
+
+// like
+route.get("/showlikebyid/:postId", showLikes);
+route.post("/like", like);
+route.delete("/deleteallikes", deleteAllLikes);
 
 // admin
 route.get("/show", showUser);

@@ -37,6 +37,6 @@ model likes{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   user user? @relation(fields: [userId], references: [id], onDelete: SetNull)
   post posts? @relation(fields: [postId], references: [id], onDelete: SetNull)
-  userId String? @unique @db.ObjectId
-  postId String? @unique @db.ObjectId
+  userId String? @db.ObjectId
+  postId String? @db.ObjectId
 }

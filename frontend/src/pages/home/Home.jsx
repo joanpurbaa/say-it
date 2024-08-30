@@ -12,7 +12,7 @@ const Home = () => {
   const [exp, setExp] = useState();
   const [posts, setPosts] = useState();
   const [postId, setPostId] = useState();
-  const [showLikes, setLikes] = useState();
+  const [showTotalLikes, setTotalLikes] = useState();
   const [description, setDescription] = useState();
   const [openModal, setOpenModal] = useState(false);
 
@@ -91,17 +91,19 @@ const Home = () => {
         `http://localhost:3000/showlikesbyid/${postId}`
       );
 
-      setLikes(result.data.length);
+      result.data[0] == undefined
+        ? setTotalLikes(0)
+        : setTotalLikes(result.data.length);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const like = async (postId) => {
+  const like = async () => {
     try {
       await axios.post("http://localhost:3000/like", {
         userId: id,
-        postId,
+        postId: postId,
       });
     } catch (error) {
       console.log(error);
@@ -226,7 +228,7 @@ const Home = () => {
                         method="post"
                         onSubmit={(e) => {
                           e.preventDefault();
-                          like(post.id);
+                          like();
                           location.reload();
                         }}
                       >
@@ -237,7 +239,9 @@ const Home = () => {
                           😍
                         </button>
                       </form>
-                      <p className="font-bold text-zinc-700">{showLikes}</p>
+                      <p className="font-bold text-zinc-700">
+                        {showTotalLikes}
+                      </p>
                       <form action="">
                         <button className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 -rotate-6 rounded-md">
                           💩

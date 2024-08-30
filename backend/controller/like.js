@@ -10,7 +10,17 @@ export const showLikesById = async (req, res) => {
       },
     });
 
-    res.json(result);
+    return res.json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const showLikes = async (req, res) => {
+  try {
+    const result = await prisma.likes.findMany();
+
+    return res.json(result);
   } catch (error) {
     console.log(error);
   }
@@ -30,14 +40,16 @@ export const like = async (req, res) => {
           userId: req.body.userId,
         },
       });
-    } else {
-      await prisma.likes.create({
-        data: {
-          userId: req.body.userId,
-          postId: req.body.postId,
-        },
-      });
+
+      return res.json({ status: 200 });
     }
+
+    await prisma.likes.create({
+      data: {
+        userId: req.body.userId,
+        postId: req.body.postId,
+      },
+    });
   } catch (error) {
     console.log(error);
   }

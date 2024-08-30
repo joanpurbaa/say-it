@@ -11,6 +11,8 @@ const Home = () => {
   const [username, setUsername] = useState();
   const [exp, setExp] = useState();
   const [posts, setPosts] = useState();
+  const [postId, setPostId] = useState();
+  const [showLikes, setLikes] = useState();
   const [description, setDescription] = useState();
   const [openModal, setOpenModal] = useState(false);
 
@@ -58,6 +60,7 @@ const Home = () => {
     });
 
     result.data[0] == undefined ? setPosts(undefined) : setPosts(result.data);
+    result.data.forEach((data) => setPostId(data.id));
   };
 
   const logout = async () => {
@@ -82,6 +85,18 @@ const Home = () => {
     }
   };
 
+  const showLikesById = async () => {
+    try {
+      const result = await axios.get(
+        `http://localhost:3000/showlikesbyid/${postId}`
+      );
+
+      setLikes(result.data.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const like = async (postId) => {
     try {
       await axios.post("http://localhost:3000/like", {
@@ -98,10 +113,11 @@ const Home = () => {
       await refreshToken();
       if (id) {
         showPostByUserId();
+        showLikesById();
       }
     };
     initialize();
-  }, [id]);
+  }, [id, postId]);
 
   return (
     <>
@@ -211,6 +227,7 @@ const Home = () => {
                         onSubmit={(e) => {
                           e.preventDefault();
                           like(post.id);
+                          location.reload();
                         }}
                       >
                         <button
@@ -220,7 +237,7 @@ const Home = () => {
                           😍
                         </button>
                       </form>
-                      <p className="font-bold text-zinc-700">68</p>
+                      <p className="font-bold text-zinc-700">{showLikes}</p>
                       <form action="">
                         <button className="text-xl hover:scale-125 transition-all bg-gray-100 py-1 px-3 rounded-batext-base shadow-batext-base hover:shadow-gray-400 -rotate-6 rounded-md">
                           💩

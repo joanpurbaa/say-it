@@ -37,7 +37,7 @@ POST http://localhost:3000/logout
 Content-Type: application/json
 
 {
-  "id" : "66c2d767bfeb5e67da1fa082"
+  "id" : "66d0696898852c80de418166"
 }
 
 ###

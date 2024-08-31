@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
-import AuthRightSection from "../../components/templates/AuthRightSection";
+import AuthRightSection from "../../components/AuthRightSection";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

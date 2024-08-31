@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Label, TextInput, Button } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthRightSection from "../../components/templates/AuthRightSection";
-import PasswordInput from "../../components/atoms/PasswordInput";
+import AuthRightSection from "../../components/AuthRightSection";
+import PasswordInput from "../../components/PasswordInput";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

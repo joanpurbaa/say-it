@@ -70,6 +70,24 @@ const customTheme = {
       default: "bg-amber-500 focus:outline-none border-0 shadow-lg",
     },
   },
+  tabs: {
+    tablist: {
+      variant: {
+        fullWidth: "",
+      },
+      tabitem: {
+        base: "flex items-center justify-center p-4 text-md font-semibold",
+        variant: {
+          fullWidth: {
+            active: {
+              on: "text-zinc-700 border-b border-zinc-700",
+              off: "text-zinc-300 border-b border-gray-300",
+            },
+          },
+        },
+      },
+    },
+  },
 };
 
 createRoot(document.getElementById("root")).render(

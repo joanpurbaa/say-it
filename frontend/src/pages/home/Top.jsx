@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
+import HomeHeroSection from "../../components/HomeHeroSection";
 
 const Top = () => {
   const navigate = useNavigate();
@@ -105,17 +106,7 @@ const Top = () => {
     <>
       <div className="grid grid-cols-12 h-dvh">
         <div className="col-start-5 col-span-4 py-5">
-          <header className="flex justify-center bg-amber-500 shadow-lg rounded-lg py-5">
-            <Link to="/" className="relative group">
-              <p className="absolute text-2xl scale-125 transition-all group-hover:scale-100 -rotate-12 -left-8 -top-2">
-                😍
-              </p>
-              <h1 className="text-white font-bold text-2xl">Say it!</h1>
-              <p className="absolute text-lg scale-100 transition-all group-hover:scale-150 rotate-12 -right-5 -bottom-3">
-                💩
-              </p>
-            </Link>
-          </header>
+          <HomeHeroSection />
           <section className="text-center text-zinc-700  py-10">
             <h1 className="font-bold text-4xl">
               A place where you can express everything!
